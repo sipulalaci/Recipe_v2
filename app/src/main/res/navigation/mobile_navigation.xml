@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="hu.bme.aut.myapplication.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_recipeList"
+        android:name="hu.bme.aut.myapplication.ui.list.ListFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_list" />
+
+    <fragment
+        android:id="@+id/navigation_newRecipe"
+        android:name="hu.bme.aut.myapplication.ui.notifications.RecipeFragment"
+        android:label="New Recipe"
+        tools:layout="@layout/fragment_recipe" />
+
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_shoppingList"-->
+<!--        android:name="hu.bme.aut.myapplication.ui.notifications.ShoppingListFragment"-->
+<!--        android:label="Shopping List"-->
+<!--        tools:layout="@layout/fragment_shoppinglist" />-->
+<!--    <activity-->
+<!--        android:id="@+id/navigation_shoppingList"-->
+<!--        android:name="hu.bme.aut.myapplication.ListActivity"-->
+<!--        android:label="Shopping List"-->
+<!--        tools:layout="@layout/fragment_shoppinglist"-->
+<!--        />-->
+</navigation>
