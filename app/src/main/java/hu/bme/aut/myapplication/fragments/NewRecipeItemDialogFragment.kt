@@ -47,24 +47,7 @@ class NewRecipeItemDialogFragment : DialogFragment() {
             .setView(getContentView())
             .setPositiveButton(R.string.ok) { dialogInterface, i ->
                 if (isValid()) {
-                    var database = Room.databaseBuilder(
-                        requireContext(),
-                        RecipeListDatabase::class.java,
-                        "recipe-list"
-                    ).build()
-                    var adapter = RecipeAdapter(ListFragment())
-
-                    thread {
-                        val newId = database.recipeItemDao().insert(getRecipeItem())
-                        val newRecipeItem = getRecipeItem().copy(
-                            id = newId
-
-                        )
-                        activity?.runOnUiThread {
-                            adapter.addItem(newRecipeItem)
-                        }
-                    }
-
+                    listener.onRecipeItemCreated(getRecipeItem())
                 }
             }
             .setNegativeButton(R.string.cancel, null)

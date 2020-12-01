@@ -3,8 +3,10 @@ package hu.bme.aut.myapplication.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.myapplication.R
 import hu.bme.aut.myapplication.data.RecipeItem
@@ -29,6 +31,7 @@ class RecipeAdapter(private val listener: ListFragment) :
         holder.priceTextView.text = item.estimatedPrice.toString()
         holder.totalCookingTime.text = item.cookingTime.toString()
 
+
         holder.item = item
     }
 
@@ -46,6 +49,7 @@ class RecipeAdapter(private val listener: ListFragment) :
         val categoryTextView: TextView
         val priceTextView: TextView
         val totalCookingTime: TextView
+        val isFavourite: Button
 
         var item: RecipeItem? = null
 
@@ -55,6 +59,10 @@ class RecipeAdapter(private val listener: ListFragment) :
             categoryTextView = itemView.findViewById(R.id.RecipeItemCategoryTextView)
             priceTextView = itemView.findViewById(R.id.RecipeItemPriceTextView)
             totalCookingTime = itemView.findViewById(R.id.RecipeItemCookingTimeTextView)
+            isFavourite = itemView.findViewById(R.id.button_favourite)
+            itemView.setOnClickListener(
+                    Navigation.createNavigateOnClickListener(R.id.navigation_shoppingList)
+            )
         }
     }
 

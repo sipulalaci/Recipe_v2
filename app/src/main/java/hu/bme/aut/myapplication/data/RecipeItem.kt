@@ -1,6 +1,7 @@
 package hu.bme.aut.myapplication.data
 
 import android.content.Intent
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -8,8 +9,10 @@ import androidx.room.TypeConverter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hu.bme.aut.myapplication.ListActivity
 import hu.bme.aut.myapplication.R
+import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName = "recipeitem")
+@Parcelize
 data class RecipeItem (
     @ColumnInfo(name = "id") @PrimaryKey(autoGenerate = true) val id: Long?,
     @ColumnInfo(name = "name") val name: String,
@@ -18,7 +21,8 @@ data class RecipeItem (
     @ColumnInfo(name = "estimated_price") val estimatedPrice: Int,
     @ColumnInfo(name = "estimated_cooking_time") val cookingTime : Int?,
     @ColumnInfo(name = "isfavourite") val isFavourite: Boolean,
-    ){
+
+    ): Parcelable{
         enum class Category {
             APPETIZER, SOUP, MAINCOURSE, DESSERT;
             companion object {
@@ -42,6 +46,7 @@ data class RecipeItem (
                 }
             }
         }
+
     }
 
 

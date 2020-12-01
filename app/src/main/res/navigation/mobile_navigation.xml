@@ -9,13 +9,21 @@
         android:id="@+id/navigation_home"
         android:name="hu.bme.aut.myapplication.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_recipeList"
+            app:destination="@id/navigation_recipeList" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_recipeList"
         android:name="hu.bme.aut.myapplication.ui.list.ListFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_list" />
+        tools:layout="@layout/fragment_list" >
+        <argument
+            android:name="type_selected"
+            app:argType="hu.bme.aut.myapplication.data.RecipeItem" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_newRecipe"
@@ -23,7 +31,8 @@
         android:label="New Recipe"
         tools:layout="@layout/fragment_recipe" />
 
-<!--    <fragment-->
+
+    <!--    <fragment-->
 <!--        android:id="@+id/navigation_shoppingList"-->
 <!--        android:name="hu.bme.aut.myapplication.ui.notifications.ShoppingListFragment"-->
 <!--        android:label="Shopping List"-->
