@@ -23,6 +23,9 @@
         <argument
             android:name="type_selected"
             app:argType="hu.bme.aut.myapplication.data.RecipeItem" />
+        <action
+            android:id="@+id/action_navigation_recipeList_to_navigation_home"
+            app:destination="@id/navigation_home" />
     </fragment>
 
     <fragment
@@ -32,15 +35,10 @@
         tools:layout="@layout/fragment_recipe" />
 
 
-    <!--    <fragment-->
-<!--        android:id="@+id/navigation_shoppingList"-->
-<!--        android:name="hu.bme.aut.myapplication.ui.notifications.ShoppingListFragment"-->
-<!--        android:label="Shopping List"-->
-<!--        tools:layout="@layout/fragment_shoppinglist" />-->
-<!--    <activity-->
-<!--        android:id="@+id/navigation_shoppingList"-->
-<!--        android:name="hu.bme.aut.myapplication.ListActivity"-->
-<!--        android:label="Shopping List"-->
-<!--        tools:layout="@layout/fragment_shoppinglist"-->
-<!--        />-->
+        <fragment
+        android:id="@+id/navigation_shoppingList"
+        android:name="hu.bme.aut.myapplication.ui.notifications.ShoppingListFragment"
+        android:label="Shopping List"
+        tools:layout="@layout/fragment_shoppinglist" />
+
 </navigation>

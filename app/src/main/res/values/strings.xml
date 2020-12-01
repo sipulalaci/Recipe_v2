@@ -22,4 +22,5 @@
     <string name="recipes">Recipes</string>
     <string name="new_recipe">New Recipe</string>
     <string name="shopping_list">Shopping List</string>
+    <string name="favourites">Favourites</string>
 </resources>

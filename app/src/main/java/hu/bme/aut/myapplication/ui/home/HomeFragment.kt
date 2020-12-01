@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import hu.bme.aut.myapplication.MainActivity
 import hu.bme.aut.myapplication.R
 import hu.bme.aut.myapplication.adapter.RecipeAdapter
@@ -31,7 +32,6 @@ class HomeFragment : Fragment() {
                 ViewModelProvider(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         mainActivity = activity as MainActivity
-//        mainActivity.adapter = RecipeAdapter(this)
         return root
     }
 
@@ -40,32 +40,24 @@ class HomeFragment : Fragment() {
 
         card_appetizer.setOnClickListener {
             Toast.makeText(context, "Appetizer clicked", Toast.LENGTH_SHORT).show()
-            //mainActivity.loadSelected("APPETIZER")
             mainActivity.selectedType = "0"
-            //mainActivity.findNavController().navigate(R.id.navigation_recipeList)
-//            var nextFragment = ListFragment()
-//            mainActivity.supportFragmentManager.beginTransaction()
-//                    .replace(R.id.navigation_recipeList, nextFragment, "findThisFragment")
-//                    .addToBackStack(null)
-//                    .commit()
-            Navigation.createNavigateOnClickListener(R.id.navigation_recipeList)
+            findNavController().navigate(R.id.navigation_recipeList)
 
         }
         card_soup.setOnClickListener {
             Toast.makeText(context, "Soup clicked", Toast.LENGTH_SHORT).show()
-            //mainActivity.loadSelected("SOUP")
             mainActivity.selectedType = "1"
+            findNavController().navigate(R.id.navigation_recipeList)
         }
         card_mainCourse.setOnClickListener {
             Toast.makeText(context, "Main course clicked", Toast.LENGTH_SHORT).show()
-            //mainActivity.loadSelected("MAINCOURSE")
             mainActivity.selectedType = "2"
+            findNavController().navigate(R.id.navigation_recipeList)
         }
         card_dessert.setOnClickListener {
             Toast.makeText(context, "Dessert clicked", Toast.LENGTH_SHORT).show()
-            //mainActivity.loadSelected("DESSERT")
             mainActivity.selectedType = "3"
+            findNavController().navigate(R.id.navigation_recipeList)
         }
-
     }
 }

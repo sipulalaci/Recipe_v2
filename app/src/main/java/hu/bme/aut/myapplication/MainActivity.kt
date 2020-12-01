@@ -39,10 +39,9 @@ class MainActivity : AppCompatActivity(), NewRecipeItemDialogFragment.NewRecipeI
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.navigation_home, R.id.navigation_recipeList, R.id.navigation_newRecipe, R.id.navigation_shoppingList))
-        //setupActionBarWithNavController(navController, appBarConfiguration)
 
+        val bottomNav = findViewById<BottomNavigationView>(R.id.mobile_navigation)
+        bottomNav?.setupWithNavController(navController)
 
         database = Room.databaseBuilder(
             this,
@@ -97,45 +96,12 @@ class MainActivity : AppCompatActivity(), NewRecipeItemDialogFragment.NewRecipeI
         }
         else{
             thread {
-                selectedItems = database.recipeItemDao().getCategory()
+                selectedItems = database.recipeItemDao().getCategory(type)
                 runOnUiThread {
                     adapter.update(selectedItems)
                 }
             }
         }
-
-//        if(type == "APPETIZER"){
-//            thread {
-//                val items = database.recipeItemDao().getCategory(type)
-//                runOnUiThread {
-//                    adapter.update(items)
-//                }
-//            }
-//        }
-//        else if(type == "SOUP"){
-//            thread {
-//                val items = database.recipeItemDao().getSoups()
-//                runOnUiThread {
-//                    adapter.update(items)
-//                }
-//            }
-//        }
-//        else if(type == "MAINCOURSE"){
-//            thread {
-//                val items = database.recipeItemDao().getMainCourses()
-//                runOnUiThread {
-//                    adapter.update(items)
-//                }
-//            }
-//        }
-//        else{
-//            thread {
-//                val items = database.recipeItemDao().getDesserts()
-//                runOnUiThread {
-//                    adapter.update(items)
-//                }
-//            }
-//        }
     }
 
     fun update(item: RecipeItem){
