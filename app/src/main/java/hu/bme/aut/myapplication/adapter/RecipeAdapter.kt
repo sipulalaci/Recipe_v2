@@ -3,9 +3,11 @@ package hu.bme.aut.myapplication.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import android.widget.ToggleButton
+import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.myapplication.R
@@ -33,9 +35,9 @@ class RecipeAdapter(private val listener: ListFragment) :
         holder.priceTextView.text = item.estimatedPrice.toString()
         holder.totalCookingTime.text = item.cookingTime.toString()
 
-
-
         holder.item = item
+        //System.out.println(item?.name)
+
     }
 
     override fun getItemCount(): Int {
@@ -47,17 +49,18 @@ class RecipeAdapter(private val listener: ListFragment) :
         abstract fun onRecipeClicked(item: RecipeItem)
     }
 
-    fun getItemPosition(item: RecipeItem): Int{
+    fun getItemPosition(item: RecipeItem): Int {
         return items.indexOf(item)
     }
 
-    inner class RecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    inner class RecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
         val iconImageView: ImageView
         val nameTextView: TextView
         val categoryTextView: TextView
         val priceTextView: TextView
         val totalCookingTime: TextView
-        val isFavourite: Button
+        val isFavourite: ToggleButton
 
         var item: RecipeItem? = null
 
@@ -68,8 +71,24 @@ class RecipeAdapter(private val listener: ListFragment) :
             priceTextView = itemView.findViewById(R.id.RecipeItemPriceTextView)
             totalCookingTime = itemView.findViewById(R.id.RecipeItemCookingTimeTextView)
             isFavourite = itemView.findViewById(R.id.button_favourite)
+
+            var bundle = bundleOf(
+                "name" to "item?.name.toString()",
+//                "category" to item?.category.toString(),
+//                "price" to item?.estimatedPrice,
+//                "cookingTime" to item?.cookingTime,
+//                "isFavourite" to item?.isFavourite
+            )
+            item?.let {
+                val newItem = it.copy()
+                item = newItem
+            }
+
             itemView.setOnClickListener(
-                    Navigation.createNavigateOnClickListener(R.id.navigation_detail)
+
+                //System.out.println(item?.name)
+                //Navigation.createNavigateOnClickListener(R.id.navigation_detail, bundle)
+                Navigation.createNavigateOnClickListener(R.id.action_navigation_recipeList_to_navigation_detail)
 
             )
         }

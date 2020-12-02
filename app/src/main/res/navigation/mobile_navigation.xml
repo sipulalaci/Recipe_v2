@@ -18,7 +18,6 @@
     <fragment
         android:id="@+id/navigation_recipeList"
         android:name="hu.bme.aut.myapplication.ui.list.ListFragment"
-        android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_list" >
         <argument
             android:name="type_selected"
