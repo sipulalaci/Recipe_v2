@@ -1,6 +1,7 @@
 package hu.bme.aut.myapplication.ui.list
 
 import android.os.Bundle
+import android.telecom.Call
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -24,13 +25,11 @@ import kotlin.concurrent.thread
 
 
 
-class ListFragment : Fragment(), RecipeAdapter.RecipeItemClickListener{
+class ListFragment : Fragment(){
 
     private lateinit var listViewModel: ListViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var mainActivity: MainActivity
-
-    //private val args by navArgs<ListFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,19 +49,25 @@ class ListFragment : Fragment(), RecipeAdapter.RecipeItemClickListener{
 
         initRecyclerView()
 
-
 //        insertRecipeItem(RecipeItem(null, "leves","valami leírás1", RecipeItem.Category.SOUP,  3, 100,false))
 //        insertRecipeItem(RecipeItem(null, "süti","valami leírás2", RecipeItem.Category.DESSERT,  2, 70,false))
 //        //insertRecipeItem(RecipeItem(null, "habos almás","valami leírás3", RecipeItem.Category.DESSERT,  3, 100,false))
 //        insertRecipeItem(RecipeItem(null, "főzelék","valami leírás4", RecipeItem.Category.MAINCOURSE,  3, 45,false))
 //        insertRecipeItem(RecipeItem(null, "nyami","valami leírás5", RecipeItem.Category.APPETIZER,  1, 30,false))
 
-        fab.setOnClickListener{
+        fab.setOnClickListener {
             NewRecipeItemDialogFragment().show(
                 childFragmentManager,
                 NewRecipeItemDialogFragment.TAG
             )
+
             loadItemsInBackground()
+        }
+        itemSwipeToRefresh.setOnRefreshListener {
+            mainActivity.selectedType = "ALL"
+            loadItemsInBackground()
+            mainActivity.adapter.notifyDataSetChanged()
+            itemSwipeToRefresh.isRefreshing = false
         }
 
     }
@@ -87,12 +92,13 @@ class ListFragment : Fragment(), RecipeAdapter.RecipeItemClickListener{
 
     }
 
-    override fun onItemChanged(item: RecipeItem) {
+    fun onItemChanged(item: RecipeItem) {
         mainActivity.update(item)
         loadItemsInBackground()
     }
 
-     fun insertRecipeItem(newItem: RecipeItem) {
+
+    fun insertRecipeItem(newItem: RecipeItem) {
         mainActivity.insertNewItem(newItem)
     }
 

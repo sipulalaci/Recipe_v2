@@ -24,15 +24,15 @@
             android:name="type_selected"
             app:argType="hu.bme.aut.myapplication.data.RecipeItem" />
         <action
-            android:id="@+id/action_navigation_recipeList_to_navigation_home"
-            app:destination="@id/navigation_home" />
+            android:id="@+id/action_navigation_recipeList_to_navigation_detail"
+            app:destination="@id/navigation_detail" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_newRecipe"
-        android:name="hu.bme.aut.myapplication.ui.notifications.RecipeFragment"
+        android:id="@+id/navigation_detail"
+        android:name="hu.bme.aut.myapplication.ui.detail.DetailsFragment"
         android:label="New Recipe"
-        tools:layout="@layout/fragment_recipe" />
+        tools:layout="@layout/fragment_details" />
 
 
         <fragment

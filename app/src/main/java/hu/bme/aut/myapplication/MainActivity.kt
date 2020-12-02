@@ -19,7 +19,7 @@ import hu.bme.aut.myapplication.fragments.NewRecipeItemDialogFragment
 import hu.bme.aut.myapplication.ui.list.ListFragment
 import kotlin.concurrent.thread
 
-class MainActivity : AppCompatActivity(), NewRecipeItemDialogFragment.NewRecipeItemDialogListener{
+class MainActivity : AppCompatActivity(), NewRecipeItemDialogFragment.NewRecipeItemDialogListener {
 
     lateinit var database: RecipeListDatabase
     lateinit var adapter: RecipeAdapter
@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity(), NewRecipeItemDialogFragment.NewRecipeI
 
     var selectedItems = emptyList<RecipeItem>()
     var selectedType = "ALL"
+    var selectedId = null
     override fun onCreate(savedInstanceState: Bundle?) {
         Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT).show()
         Thread.sleep(2000)
@@ -34,14 +35,14 @@ class MainActivity : AppCompatActivity(), NewRecipeItemDialogFragment.NewRecipeI
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
-
         val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+        navView.setupWithNavController(navController)
 
-        val bottomNav = findViewById<BottomNavigationView>(R.id.mobile_navigation)
-        bottomNav?.setupWithNavController(navController)
+//        val bottomNav = findViewById<BottomNavigationView>(R.id.mobile_navigation)
+//        bottomNav?.setupWithNavController(navController)
+
 
         database = Room.databaseBuilder(
             this,
@@ -49,12 +50,12 @@ class MainActivity : AppCompatActivity(), NewRecipeItemDialogFragment.NewRecipeI
             "recipe-list"
         ).build()
 
-        navView.setupWithNavController(navController)
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){
-            R.id.navigation_shoppingList ->{
+        return when (item.itemId) {
+            R.id.navigation_shoppingList -> {
                 val settingsActivity = Intent(this, ListActivity::class.java)
                 startActivity(settingsActivity)
                 true
@@ -76,7 +77,7 @@ class MainActivity : AppCompatActivity(), NewRecipeItemDialogFragment.NewRecipeI
         }
     }
 
-    fun loadAll(){
+    fun loadAll() {
         thread {
             val items = database.recipeItemDao().getAll()
             runOnUiThread {
@@ -85,16 +86,15 @@ class MainActivity : AppCompatActivity(), NewRecipeItemDialogFragment.NewRecipeI
         }
     }
 
-    fun loadSelected(type: String){
-        if(selectedType == "ALL"){
+    fun loadSelected(type: String) {
+        if (selectedType == "ALL") {
             thread {
                 val items = database.recipeItemDao().getAll()
                 runOnUiThread {
                     adapter.update(items)
                 }
             }
-        }
-        else{
+        } else {
             thread {
                 selectedItems = database.recipeItemDao().getCategory(type)
                 runOnUiThread {
@@ -104,12 +104,13 @@ class MainActivity : AppCompatActivity(), NewRecipeItemDialogFragment.NewRecipeI
         }
     }
 
-    fun update(item: RecipeItem){
+    fun update(item: RecipeItem) {
         thread {
             database.recipeItemDao().update(item)
             Log.d("Recyclerview fragment", "RecipeItem update was successful")
         }
     }
+
     fun insertNewItem(newItem: RecipeItem) {
         thread {
             val newId = database.recipeItemDao().insert(newItem)

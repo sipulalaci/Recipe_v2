@@ -16,12 +16,14 @@ class RecipeAdapter(private val listener: ListFragment) :
     RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
     private val items = mutableListOf<RecipeItem>()
+    var selectedItemId = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
         val itemView: View = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.item_list, parent, false)
         return RecipeViewHolder(itemView)
     }
+
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         val item = items[position]
@@ -30,6 +32,7 @@ class RecipeAdapter(private val listener: ListFragment) :
         holder.categoryTextView.text = item.category.toString()
         holder.priceTextView.text = item.estimatedPrice.toString()
         holder.totalCookingTime.text = item.cookingTime.toString()
+
 
 
         holder.item = item
@@ -41,6 +44,11 @@ class RecipeAdapter(private val listener: ListFragment) :
 
     interface RecipeItemClickListener {
         fun onItemChanged(item: RecipeItem)
+        abstract fun onRecipeClicked(item: RecipeItem)
+    }
+
+    fun getItemPosition(item: RecipeItem): Int{
+        return items.indexOf(item)
     }
 
     inner class RecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
@@ -61,7 +69,8 @@ class RecipeAdapter(private val listener: ListFragment) :
             totalCookingTime = itemView.findViewById(R.id.RecipeItemCookingTimeTextView)
             isFavourite = itemView.findViewById(R.id.button_favourite)
             itemView.setOnClickListener(
-                    Navigation.createNavigateOnClickListener(R.id.navigation_shoppingList)
+                    Navigation.createNavigateOnClickListener(R.id.navigation_detail)
+
             )
         }
     }

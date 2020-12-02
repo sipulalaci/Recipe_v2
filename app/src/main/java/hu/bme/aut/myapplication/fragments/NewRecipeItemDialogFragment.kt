@@ -32,7 +32,7 @@ class NewRecipeItemDialogFragment : DialogFragment() {
     private lateinit var descriptionEditText: EditText
     private lateinit var estimatedPriceEditText: EditText
     private lateinit var categorySpinner: Spinner
-    private lateinit var isFavouriteCheckBox: CheckBox
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -73,7 +73,7 @@ class NewRecipeItemDialogFragment : DialogFragment() {
                 resources.getStringArray(R.array.category_items)
             )
         )
-        isFavouriteCheckBox = contentView.findViewById(R.id.RecipeItemIsPurchasedCheckBox)
+
         return contentView
     }
 
@@ -91,6 +91,6 @@ class NewRecipeItemDialogFragment : DialogFragment() {
         category = RecipeItem.Category.getByOrdinal(categorySpinner.selectedItemPosition)
             ?: RecipeItem.Category.APPETIZER,
         cookingTime = null,
-        isFavourite = isFavouriteCheckBox.isChecked
+        isFavourite = false
     )
 }

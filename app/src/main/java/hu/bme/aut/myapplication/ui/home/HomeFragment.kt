@@ -39,23 +39,23 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         card_appetizer.setOnClickListener {
-            Toast.makeText(context, "Appetizer clicked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Appetizer selected", Toast.LENGTH_SHORT).show()
             mainActivity.selectedType = "0"
             findNavController().navigate(R.id.navigation_recipeList)
 
         }
         card_soup.setOnClickListener {
-            Toast.makeText(context, "Soup clicked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Soup selected", Toast.LENGTH_SHORT).show()
             mainActivity.selectedType = "1"
             findNavController().navigate(R.id.navigation_recipeList)
         }
         card_mainCourse.setOnClickListener {
-            Toast.makeText(context, "Main course clicked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Main course selected", Toast.LENGTH_SHORT).show()
             mainActivity.selectedType = "2"
             findNavController().navigate(R.id.navigation_recipeList)
         }
         card_dessert.setOnClickListener {
-            Toast.makeText(context, "Dessert clicked", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Dessert selected", Toast.LENGTH_SHORT).show()
             mainActivity.selectedType = "3"
             findNavController().navigate(R.id.navigation_recipeList)
         }
