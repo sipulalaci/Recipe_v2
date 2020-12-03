@@ -40,30 +40,25 @@ class MainActivity : AppCompatActivity(), NewRecipeItemDialogFragment.NewRecipeI
         val navController = findNavController(R.id.nav_host_fragment)
         navView.setupWithNavController(navController)
 
-//        val bottomNav = findViewById<BottomNavigationView>(R.id.mobile_navigation)
-//        bottomNav?.setupWithNavController(navController)
-
-
         database = Room.databaseBuilder(
             this,
             RecipeListDatabase::class.java,
             "recipe-list"
         ).build()
 
-
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.navigation_shoppingList -> {
-                val settingsActivity = Intent(this, ListActivity::class.java)
-                startActivity(settingsActivity)
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        return when (item.itemId) {
+//            R.id.navigation_shoppingList -> {
+//                val settingsActivity = Intent(this, ListActivity::class.java)
+//                startActivity(settingsActivity)
+//                true
+//            }
+//
+//            else -> super.onOptionsItemSelected(item)
+//        }
+//    }
 
     override fun onRecipeItemCreated(newItem: RecipeItem) {
         thread {

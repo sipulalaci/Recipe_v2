@@ -1,16 +1,13 @@
 package hu.bme.aut.myapplication.data
 
-import android.content.Intent
+
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import hu.bme.aut.myapplication.ListActivity
-import hu.bme.aut.myapplication.R
 import kotlinx.android.parcel.Parcelize
-import java.net.URI
+
 
 @Entity(tableName = "recipeitem")
 @Parcelize
