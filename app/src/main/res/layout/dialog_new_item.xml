@@ -26,18 +26,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dip"
-            android:text="@string/description"/>
-
-        <EditText
-            android:id="@+id/RecipeItemDescriptionEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dip"
             android:text="@string/category"/>
 
         <Spinner
@@ -49,13 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dip"
-            android:text="@string/estimated_price"/>
-
-        <EditText
-            android:id="@+id/RecipeItemEstimatedPriceEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"/>
+            android:text="@string/price"/>
 
         <Spinner
             android:id="@+id/RecipePriceSpinner"
@@ -63,8 +45,39 @@
             android:layout_height="wrap_content"
             />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/totaltime"/>
+
+        <EditText
+            android:id="@+id/RecipeItemTimeEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dip"
+            android:text="@string/ingredients"/>
+
+        <EditText
+            android:id="@+id/RecipeItemIngredientsEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dip"
+            android:text="@string/Directions"/>
+
+        <EditText
+            android:id="@+id/RecipeItemDirectionsEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
     </LinearLayout>
-
-
 
 </ScrollView>

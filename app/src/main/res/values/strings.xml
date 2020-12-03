@@ -17,10 +17,21 @@
         <item>Main Course</item>
         <item>Dessert</item>
     </string-array>
+    <string-array name="price_items">
+        <item>$</item>
+        <item>$$</item>
+        <item>$$$</item>
+        <item>$$$$</item>
+        <item>$$$$$</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="recipes">Recipes</string>
     <string name="new_recipe">New Recipe</string>
     <string name="shopping_list">Shopping List</string>
     <string name="favourites">Favourites</string>
+    <string name="price">Price</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="Directions">Directions</string>
+    <string name="totaltime">Total time</string>
 </resources>

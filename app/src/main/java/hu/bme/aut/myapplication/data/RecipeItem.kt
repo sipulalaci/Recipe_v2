@@ -10,18 +10,20 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import hu.bme.aut.myapplication.ListActivity
 import hu.bme.aut.myapplication.R
 import kotlinx.android.parcel.Parcelize
+import java.net.URI
 
 @Entity(tableName = "recipeitem")
 @Parcelize
 data class RecipeItem (
     @ColumnInfo(name = "id") @PrimaryKey(autoGenerate = true) val id: Long?,
     @ColumnInfo(name = "name") val name: String,
-    @ColumnInfo(name = "description") val description: String,
+    @ColumnInfo(name = "directions") val directions: String,
+    @ColumnInfo(name = "ingredients") val ingredients: String,
     @ColumnInfo(name = "category") val category: Category,
-    @ColumnInfo(name = "estimated_price") val estimatedPrice: Int,
-    @ColumnInfo(name = "estimated_cooking_time") val cookingTime : Int?,
+    @ColumnInfo(name = "price") val price: String,
+    @ColumnInfo(name = "estimated_cooking_time") val cookingTime : Int,
     @ColumnInfo(name = "isfavourite") val isFavourite: Boolean,
-
+    @ColumnInfo(name = "picture_uri") val pictureURI: String
     ): Parcelable{
         enum class Category {
             APPETIZER, SOUP, MAINCOURSE, DESSERT;
@@ -46,9 +48,7 @@ data class RecipeItem (
                 }
             }
         }
-
     }
-
 
 
 //object Converters {

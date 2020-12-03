@@ -6,21 +6,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import androidx.room.Room
-import com.google.android.material.internal.ViewUtils.getContentView
 import hu.bme.aut.myapplication.R
-import hu.bme.aut.myapplication.adapter.RecipeAdapter
 import hu.bme.aut.myapplication.data.RecipeItem
-import hu.bme.aut.myapplication.data.RecipeListDatabase
-import hu.bme.aut.myapplication.ui.list.ListFragment
-import kotlinx.android.synthetic.main.item_list.*
-import kotlinx.coroutines.NonCancellable.cancel
-import kotlin.concurrent.thread
+import kotlinx.android.synthetic.main.fragment_details.*
 
 class NewRecipeItemDialogFragment : DialogFragment() {
     interface NewRecipeItemDialogListener {
@@ -29,9 +21,12 @@ class NewRecipeItemDialogFragment : DialogFragment() {
 
     private lateinit var listener: NewRecipeItemDialogListener
     private lateinit var nameEditText: EditText
-    private lateinit var descriptionEditText: EditText
-    private lateinit var estimatedPriceEditText: EditText
+    private lateinit var directionsEditText: EditText
+    private lateinit var ingredientsEditText: EditText
     private lateinit var categorySpinner: Spinner
+    private lateinit var priceSpinner: Spinner
+    private lateinit var totalTimeEditText: EditText
+
 
 
     override fun onAttach(context: Context) {
@@ -63,8 +58,10 @@ class NewRecipeItemDialogFragment : DialogFragment() {
         val contentView =
             LayoutInflater.from(context).inflate(R.layout.dialog_new_item, null)
         nameEditText = contentView.findViewById(R.id.RecipeItemNameEditText)
-        descriptionEditText = contentView.findViewById(R.id.RecipeItemDescriptionEditText)
-        estimatedPriceEditText = contentView.findViewById(R.id.RecipeItemEstimatedPriceEditText)
+        ingredientsEditText = contentView.findViewById(R.id.RecipeItemIngredientsEditText)
+        directionsEditText = contentView.findViewById(R.id.RecipeItemDirectionsEditText)
+        priceSpinner = contentView.findViewById(R.id.RecipePriceSpinner)
+        totalTimeEditText = contentView.findViewById(R.id.RecipeItemTimeEditText)
         categorySpinner = contentView.findViewById(R.id.RecipeItemCategorySpinner)
         categorySpinner.setAdapter(
             ArrayAdapter(
@@ -73,6 +70,15 @@ class NewRecipeItemDialogFragment : DialogFragment() {
                 resources.getStringArray(R.array.category_items)
             )
         )
+        priceSpinner = contentView.findViewById(R.id.RecipePriceSpinner)
+        priceSpinner.setAdapter(
+            ArrayAdapter.createFromResource(
+                requireContext(),
+                R.array.price_items,
+                android.R.layout.simple_spinner_dropdown_item)
+        )
+
+
 
         return contentView
     }
@@ -81,16 +87,22 @@ class NewRecipeItemDialogFragment : DialogFragment() {
 
     private fun getRecipeItem() = RecipeItem(
         id = null,
+        //TODO: pictures
+        pictureURI = "TODO",
         name = nameEditText.text.toString(),
-        description = descriptionEditText.text.toString(),
-        estimatedPrice = try {
-            estimatedPriceEditText.text.toString().toInt()
+        ingredients = ingredientsEditText.text.toString(),
+        directions = directionsEditText.text.toString(),
+        price = priceSpinner.selectedItem.toString(),
+
+        category = RecipeItem.Category.getByOrdinal(categorySpinner.selectedItemPosition)
+            ?: RecipeItem.Category.APPETIZER,
+
+        cookingTime = try {
+            totalTimeEditText.text.toString().toInt()
         } catch (e: java.lang.NumberFormatException) {
             0
         },
-        category = RecipeItem.Category.getByOrdinal(categorySpinner.selectedItemPosition)
-            ?: RecipeItem.Category.APPETIZER,
-        cookingTime = null,
         isFavourite = false
     )
 }
+

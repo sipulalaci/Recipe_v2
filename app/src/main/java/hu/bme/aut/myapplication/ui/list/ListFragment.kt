@@ -1,31 +1,26 @@
 package hu.bme.aut.myapplication.ui.list
 
 import android.os.Bundle
-import android.telecom.Call
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.navArgs
+import androidx.navigation.Navigation
+
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import hu.bme.aut.myapplication.MainActivity
 import hu.bme.aut.myapplication.R
 import hu.bme.aut.myapplication.adapter.RecipeAdapter
 import hu.bme.aut.myapplication.data.RecipeItem
-import hu.bme.aut.myapplication.data.RecipeListDatabase
 import hu.bme.aut.myapplication.fragments.NewRecipeItemDialogFragment
 import kotlinx.android.synthetic.main.fragment_list.*
-import kotlinx.android.synthetic.main.item_list.*
 import kotlinx.android.synthetic.main.recipe_recyclerview.*
-import kotlin.concurrent.thread
 
 
-
-class ListFragment : Fragment(){
+class ListFragment : Fragment(), RecipeAdapter.OnRecipeSelectedListener{
 
     private lateinit var listViewModel: ListViewModel
     private lateinit var recyclerView: RecyclerView
@@ -100,6 +95,14 @@ class ListFragment : Fragment(){
 
     fun insertRecipeItem(newItem: RecipeItem) {
         mainActivity.insertNewItem(newItem)
+    }
+
+
+    override fun onRecipeSelected(item: RecipeItem, itemView: View) {
+        val bundle = bundleOf(
+            "item" to item
+        )
+        Navigation.findNavController(itemView).navigate(R.id.navigation_detail, bundle)
     }
 
 //    override fun onRecipeItemCreated(newItem: RecipeItem) {
