@@ -1,4 +1,4 @@
-package hu.bme.aut.myapplication.ui.notifications
+package hu.bme.aut.myapplication.ui.shoppinglist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

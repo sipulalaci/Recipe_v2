@@ -6,10 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.net.toUri
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavType
+import androidx.navigation.Navigation
 import hu.bme.aut.myapplication.MainActivity
 import hu.bme.aut.myapplication.R
+import hu.bme.aut.myapplication.shoppingdata.ShoppingItem
 import kotlinx.android.synthetic.main.fragment_details.*
 import java.lang.StringBuilder
 
@@ -20,6 +24,8 @@ class DetailsFragment : Fragment() {
     private lateinit var mainActivity: MainActivity
     private lateinit var ingredients: MutableList<String>
     private lateinit var directions: MutableList<String>
+    private lateinit var valami: NavType.SerializableType<String>
+    private lateinit var stringToPass: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,11 +79,15 @@ class DetailsFragment : Fragment() {
         }
         ingredients.clear()
         ingredients = temp
+        var ingredientstoPass = StringBuilder()
         var ingredientsBuilder = StringBuilder()
         for(actual in ingredients){
             ingredientsBuilder.append("- ")
             ingredientsBuilder.append(actual)
             if(actual != ingredients.last()) ingredientsBuilder.append("\n\n")
+
+            ingredientstoPass.append(actual)
+            if(actual != ingredients.last()) ingredientstoPass.append("\n")
         }
         ingredientTextView.text = ingredientsBuilder.toString()
 
@@ -96,6 +106,25 @@ class DetailsFragment : Fragment() {
             if(actual != ingredients.last()) directionsBuilder.append("\n\n")
         }
         directionsTextView.text = directionsBuilder.toString()
+
+        addToShoppingListButton.setOnClickListener {
+
+//            val bundle = bundleOf(
+//                "item" to item
+//            )
+
+//            for(actual in ingredients){
+//                valami
+//                mainActivity.shoppingadapter.addItem(ShoppingItem(null, actual, false))
+//            }
+
+           val bundle = bundleOf(
+               "value" to ingredientstoPass.toString()
+           )
+
+            Navigation.findNavController(view).navigate(R.id.navigation_shoppingList, bundle)
+
+        }
     }
 
 

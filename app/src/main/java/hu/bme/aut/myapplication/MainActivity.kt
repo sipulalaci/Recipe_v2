@@ -16,11 +16,16 @@ import hu.bme.aut.myapplication.adapter.RecipeAdapter
 import hu.bme.aut.myapplication.data.RecipeItem
 import hu.bme.aut.myapplication.data.RecipeListDatabase
 import hu.bme.aut.myapplication.fragments.NewRecipeItemDialogFragment
+import hu.bme.aut.myapplication.shoppingdata.ShoppingAdapter
+import hu.bme.aut.myapplication.shoppingdata.ShoppingItem
+import hu.bme.aut.myapplication.shoppingdata.ShoppingListDatabase
 import hu.bme.aut.myapplication.ui.list.ListFragment
 import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity(), NewRecipeItemDialogFragment.NewRecipeItemDialogListener {
 
+    lateinit var shoppingdatabase: ShoppingListDatabase
+    lateinit var shoppingadapter: ShoppingAdapter
     lateinit var database: RecipeListDatabase
     lateinit var adapter: RecipeAdapter
     val TAG = "Main"
@@ -40,12 +45,19 @@ class MainActivity : AppCompatActivity(), NewRecipeItemDialogFragment.NewRecipeI
         val navController = findNavController(R.id.nav_host_fragment)
         navView.setupWithNavController(navController)
 
+        //creating the database of the recipes
         database = Room.databaseBuilder(
             this,
             RecipeListDatabase::class.java,
             "recipe-list"
         ).build()
 
+        //Creating the databose of the shoppinglist items
+        shoppingdatabase = Room.databaseBuilder(
+            this,
+            ShoppingListDatabase::class.java,
+            "shopping-list"
+        ).build()
     }
 
 //    override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -72,6 +84,14 @@ class MainActivity : AppCompatActivity(), NewRecipeItemDialogFragment.NewRecipeI
         }
     }
 
+    fun loadShoppingItems(){
+        thread {
+            val items = shoppingdatabase.shoppingItemDao().getAll()
+            runOnUiThread {
+                shoppingadapter.update(items)
+            }
+        }
+    }
     fun loadAll() {
         thread {
             val items = database.recipeItemDao().getAll()
@@ -119,4 +139,18 @@ class MainActivity : AppCompatActivity(), NewRecipeItemDialogFragment.NewRecipeI
         adapter.notifyDataSetChanged()
 
     }
+    fun insertNewShoppingItem(newItem: ShoppingItem){
+        thread {
+            val newId = shoppingdatabase.shoppingItemDao().insert(newItem)
+            val newShoppingItem = newItem.copy(
+                id = newId
+            )
+            runOnUiThread {
+                shoppingadapter.addItem(newShoppingItem)
+            }
+        }
+        shoppingadapter.notifyDataSetChanged()
+
+    }
+
 }

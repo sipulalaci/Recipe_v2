@@ -36,7 +36,7 @@
 
         <fragment
         android:id="@+id/navigation_shoppingList"
-        android:name="hu.bme.aut.myapplication.ui.notifications.ShoppingListFragment"
+        android:name="hu.bme.aut.myapplication.ui.shoppinglist.ShoppingListFragment"
         android:label="Shopping List"
         tools:layout="@layout/fragment_shoppinglist" />
 
