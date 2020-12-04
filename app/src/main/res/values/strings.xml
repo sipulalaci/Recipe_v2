@@ -35,4 +35,6 @@
     <string name="Directions">Directions</string>
     <string name="totaltime">Total time</string>
     <string name="picture">Picture</string>
+    <string name="create_picture">Create picture</string>
+    <string name="add_picture">Add picture</string>
 </resources>

@@ -1,6 +1,7 @@
 package hu.bme.aut.myapplication.ui.list
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import hu.bme.aut.myapplication.data.RecipeItem
 import hu.bme.aut.myapplication.fragments.NewRecipeItemDialogFragment
 import kotlinx.android.synthetic.main.fragment_list.*
 import kotlinx.android.synthetic.main.recipe_recyclerview.*
+import kotlin.concurrent.thread
 
 
 class ListFragment : Fragment(), RecipeAdapter.OnRecipeSelectedListener{
@@ -55,7 +57,7 @@ class ListFragment : Fragment(), RecipeAdapter.OnRecipeSelectedListener{
                 NewRecipeItemDialogFragment.TAG
             )
 
-            loadItemsInBackground()
+            //loadItemsInBackground()
         }
         itemSwipeToRefresh.setOnRefreshListener {
             mainActivity.selectedType = "ALL"
@@ -102,6 +104,13 @@ class ListFragment : Fragment(), RecipeAdapter.OnRecipeSelectedListener{
             "item" to item
         )
         Navigation.findNavController(itemView).navigate(R.id.navigation_detail, bundle)
+    }
+
+    override fun onIsFavouriteChecked(item: RecipeItem) {
+        thread {
+            mainActivity.database.recipeItemDao().update(item)
+            Log.d("ListFragment", "RecipeItem update was successful")
+        }
     }
 
 //    override fun onRecipeItemCreated(newItem: RecipeItem) {

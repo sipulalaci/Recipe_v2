@@ -80,6 +80,7 @@
             />
 
         <TextView
+            android:id="@+id/test"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dip"
@@ -88,7 +89,16 @@
             android:id="@+id/RecipeItemPictureButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Create picture"/>
+            android:text="@string/create_picture"/>
+        <Button
+            android:id="@+id/RecipeItemAddPictureButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add_picture"/>
+        <ImageView
+            android:id="@+id/RecipeImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
