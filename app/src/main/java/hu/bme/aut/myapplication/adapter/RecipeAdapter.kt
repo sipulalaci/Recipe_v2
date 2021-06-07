@@ -3,26 +3,25 @@ package hu.bme.aut.myapplication.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.ToggleButton
+import android.widget.*
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import hu.bme.aut.myapplication.MainActivity
 import hu.bme.aut.myapplication.R
 import hu.bme.aut.myapplication.data.RecipeItem
 import kotlinx.android.synthetic.main.fragment_details.*
+import kotlin.coroutines.coroutineContext
 
 class RecipeAdapter internal constructor(private val listener: OnRecipeSelectedListener) :
     RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
-    private val items = mutableListOf<RecipeItem>()
-
+    val items = mutableListOf<RecipeItem>()
     interface OnRecipeSelectedListener {
         fun onRecipeSelected(item: RecipeItem, itemView: View)
         fun onIsFavouriteChecked(item: RecipeItem)
+        fun onIsFavouriteLongClicked(itemView: View)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
@@ -65,7 +64,6 @@ class RecipeAdapter internal constructor(private val listener: OnRecipeSelectedL
         return items.size
     }
 
-
     inner class RecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val iconImageView: ImageView
@@ -100,6 +98,12 @@ class RecipeAdapter internal constructor(private val listener: OnRecipeSelectedL
                 }
                 System.out.println(item?.name)
             })
+
+            isFavourite.setOnLongClickListener {
+                //nameTextView.text = "set"
+                item?.let { it -> listener.onIsFavouriteLongClicked(itemView)}
+                false
+            }
         }
     }
 

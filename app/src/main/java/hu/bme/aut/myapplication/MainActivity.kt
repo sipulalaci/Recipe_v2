@@ -4,10 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -20,6 +23,7 @@ import hu.bme.aut.myapplication.shoppingdata.ShoppingAdapter
 import hu.bme.aut.myapplication.shoppingdata.ShoppingItem
 import hu.bme.aut.myapplication.shoppingdata.ShoppingListDatabase
 import hu.bme.aut.myapplication.ui.list.ListFragment
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity(), NewRecipeItemDialogFragment.NewRecipeItemDialogListener {
@@ -30,9 +34,8 @@ class MainActivity : AppCompatActivity(), NewRecipeItemDialogFragment.NewRecipeI
     lateinit var adapter: RecipeAdapter
     val TAG = "Main"
 
-    var selectedItems = emptyList<RecipeItem>()
+    var selectedItems = mutableListOf<RecipeItem>()
     var selectedType = "ALL"
-    var selectedId = null
     override fun onCreate(savedInstanceState: Bundle?) {
         Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT).show()
         Thread.sleep(2000)
@@ -52,25 +55,14 @@ class MainActivity : AppCompatActivity(), NewRecipeItemDialogFragment.NewRecipeI
             "recipe-list"
         ).build()
 
-        //Creating the databose of the shoppinglist items
+        //Creating the database of the shoppinglist items
         shoppingdatabase = Room.databaseBuilder(
             this,
             ShoppingListDatabase::class.java,
             "shopping-list"
         ).build()
-    }
 
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return when (item.itemId) {
-//            R.id.navigation_shoppingList -> {
-//                val settingsActivity = Intent(this, ListActivity::class.java)
-//                startActivity(settingsActivity)
-//                true
-//            }
-//
-//            else -> super.onOptionsItemSelected(item)
-//        }
-//    }
+    }
 
     override fun onRecipeItemCreated(newItem: RecipeItem) {
         thread {
@@ -92,16 +84,8 @@ class MainActivity : AppCompatActivity(), NewRecipeItemDialogFragment.NewRecipeI
             }
         }
     }
-    fun loadAll() {
-        thread {
-            val items = database.recipeItemDao().getAll()
-            runOnUiThread {
-                adapter.update(items)
-            }
-        }
-    }
 
-    fun loadSelected(type: String) {
+    fun loadSelected() {
         if (selectedType == "ALL") {
             thread {
                 val items = database.recipeItemDao().getAll()
@@ -109,14 +93,26 @@ class MainActivity : AppCompatActivity(), NewRecipeItemDialogFragment.NewRecipeI
                     adapter.update(items)
                 }
             }
-        } else {
+        } else if(selectedType == "FAVOURITES"){
             thread {
-                selectedItems = database.recipeItemDao().getCategory(type)
+                selectedItems = database.recipeItemDao().getFavourites().toMutableList()
                 runOnUiThread {
                     adapter.update(selectedItems)
                 }
             }
         }
+        else{
+            thread {
+                selectedItems = database.recipeItemDao().getCategory(selectedType).toMutableList()
+                runOnUiThread {
+                    adapter.update(selectedItems)
+                }
+            }
+        }
+    }
+    fun loadFavourites(itemView: View){
+        selectedType = "FAVOURITES"
+        Navigation.findNavController(itemView).navigate(R.id.navigation_recipeList)
     }
 
     fun update(item: RecipeItem) {
@@ -137,7 +133,6 @@ class MainActivity : AppCompatActivity(), NewRecipeItemDialogFragment.NewRecipeI
             }
         }
         adapter.notifyDataSetChanged()
-
     }
     fun insertNewShoppingItem(newItem: ShoppingItem){
         thread {
@@ -150,7 +145,5 @@ class MainActivity : AppCompatActivity(), NewRecipeItemDialogFragment.NewRecipeI
             }
         }
         shoppingadapter.notifyDataSetChanged()
-
     }
-
 }

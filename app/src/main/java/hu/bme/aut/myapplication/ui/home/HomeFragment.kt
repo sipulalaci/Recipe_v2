@@ -32,11 +32,14 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//        textChoose.setOnClickListener{
+//            mainActivity.loadFavourites(it)
+//            findNavController().navigate(R.id.navigation_recipeList)
+//        }
         card_appetizer.setOnClickListener {
             Toast.makeText(context, "Appetizer selected", Toast.LENGTH_SHORT).show()
             mainActivity.selectedType = "0"
             findNavController().navigate(R.id.navigation_recipeList)
-
         }
         card_soup.setOnClickListener {
             Toast.makeText(context, "Soup selected", Toast.LENGTH_SHORT).show()

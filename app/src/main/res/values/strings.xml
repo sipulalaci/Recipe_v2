@@ -28,7 +28,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="recipes">Recipes</string>
     <string name="new_recipe">New Recipe</string>
-    <string name="shopping_list">Shopping List</string>
     <string name="favourites">Favourites</string>
     <string name="price">Price</string>
     <string name="ingredients">Ingredients:</string>
@@ -46,4 +45,26 @@
     <string name="type">Type:</string>
     <string name="price_padding">price</string>
     <string name="price_category">Price category:</string>
+    <string name="title_padding">TITLE</string>
+    <string name="total_time">Total time:</string>
+    <string name="time_padding">time</string>
+    <string name="image_for_the_recipe">Image for the recipe</string>
+    <string name="name_hint">Add the name of the food</string>
+    <string name="review_of_the_taken_or_added_photo">Review of the taken or added photo</string>
+    <string name="choose">Choose</string>
+    <string name="one_of_the_types_below">one of the types below</string>
+    <string name="appetizer_category_image">Category image</string>
+    <string name="appetizer">Appetizer</string>
+    <string name="category_image">Category image</string>
+    <string name="soup">Soup</string>
+    <string name="main_course">Main Course</string>
+    <string name="dessert">Dessert</string>
+    <string name="shopping_list">Shopping list</string>
+    <string name="cooking_time_in_minutes">Cooking time in minutes</string>
+    <string name="actionbuttion_for_adding_new_item_to_the_list">ActionButtion for adding new item to the list</string>
+    <string name="time">time</string>
+    <string name="category_textview">category</string>
+    <string name="new_recipe_label">New Recipe</string>
+    <string name="shopping_list_label">Shopping list</string>
+    <string name="argument_type_selected">type_selected</string>
 </resources>

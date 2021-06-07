@@ -48,30 +48,3 @@ data class RecipeItem (
     }
 
 
-//object Converters {
-//    @TypeConverter
-//    @JvmStatic
-//    fun toType(ordinal: Int): Cell.Type? {
-//        return Cell.Type.values().find {
-//            it.ordinal == ordinal
-//        }
-//    }
-//    @JvmStatic
-//    @TypeConverter
-//    fun toIntType(type: Cell.Type): Int {
-//        return type.ordinal
-//    }
-//    @TypeConverter
-//    @JvmStatic
-//    fun toVisitState(ordinal: Int): Cell.VisitState? {
-//        return Cell.VisitState.values().find {
-//            it.ordinal == ordinal
-//        }
-//    }
-//    @JvmStatic
-//    @TypeConverter
-//    fun toIntVisitState(type: Cell.VisitState): Int {
-// json.deserialze(type)
-//        return type.ordinal
-//    }
-//}

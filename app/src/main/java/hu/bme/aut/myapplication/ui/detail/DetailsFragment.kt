@@ -24,8 +24,6 @@ class DetailsFragment : Fragment() {
     private lateinit var mainActivity: MainActivity
     private lateinit var ingredients: MutableList<String>
     private lateinit var directions: MutableList<String>
-    private lateinit var valami: NavType.SerializableType<String>
-    private lateinit var stringToPass: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,7 +66,7 @@ class DetailsFragment : Fragment() {
         //Setting the value of the price
         RecipeItemPriceTextView.text = item.price
 
-        //
+        //Setting thevalue of the cooking time
         RecipeItemCookingTimeTextView.text = item.cookingTime.toString()
 
         //Splitting the ingredients String into list to display it better
@@ -109,23 +107,11 @@ class DetailsFragment : Fragment() {
 
         addToShoppingListButton.setOnClickListener {
 
-//            val bundle = bundleOf(
-//                "item" to item
-//            )
-
-//            for(actual in ingredients){
-//                valami
-//                mainActivity.shoppingadapter.addItem(ShoppingItem(null, actual, false))
-//            }
-
            val bundle = bundleOf(
-               "value" to ingredientstoPass.toString()
+               "values" to ingredientstoPass.toString()
            )
 
             Navigation.findNavController(view).navigate(R.id.navigation_shoppingList, bundle)
-
         }
     }
-
-
 }

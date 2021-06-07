@@ -35,8 +35,6 @@ class ShoppingListFragment : Fragment(), ShoppingAdapter.ShoppingItemClickListen
 
         mainActivity = activity as MainActivity
 
-
-
         return root
     }
 
@@ -67,12 +65,12 @@ class ShoppingListFragment : Fragment(), ShoppingAdapter.ShoppingItemClickListen
         initRecyclerView()
         var values = arguments?.getString("values")
         var temp = values?.split("\n")?.toTypedArray()?.toMutableList()
+        Log.d("values", "$values")
         if (temp != null) {
             for(actual in temp){
                 mainActivity.insertNewShoppingItem(ShoppingItem(null, actual, false))
             }
         }
-        //mainActivity.insertNewShoppingItem(ShoppingItem(null, "valami", false))
         loadItemsInBackground()
     }
 

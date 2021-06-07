@@ -141,14 +141,14 @@ class NewRecipeItemDialogFragment : DialogFragment() {
         if (checkSelfPermission(
                 requireContext().applicationContext,
                 Manifest.permission.CAMERA
-            )
-            == PackageManager.PERMISSION_DENIED
+            ) == PackageManager.PERMISSION_DENIED
         )
             ActivityCompat.requestPermissions(
                 requireActivity(),
                 arrayOf(Manifest.permission.CAMERA),
                 cameraRequest
             )
+
         takePicture = contentView.findViewById(R.id.RecipeItemPictureButton)
         takePicture.setOnClickListener {
             dispatchTakePictureIntent()
@@ -156,26 +156,23 @@ class NewRecipeItemDialogFragment : DialogFragment() {
 
         addPicture = contentView.findViewById(R.id.RecipeItemAddPictureButton)
         addPicture.setOnClickListener {
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-//                if (checkSelfPermission(requireContext(),Manifest.permission.READ_EXTERNAL_STORAGE)==PackageManager.PERMISSION_DENIED){
-//                    val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-//                    requestPermissions(permissions, PERMISSION_CODE)
-//                } else{
-//                    galleryAddPic();
-//                }
-//            }else{
-//                galleryAddPic();
-//            }
-            galleryAddPic()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if (checkSelfPermission(requireContext(),Manifest.permission.READ_EXTERNAL_STORAGE)==PackageManager.PERMISSION_DENIED){
+                    val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    requestPermissions(permissions, PERMISSION_CODE)
+                } else{
+                    galleryAddPic();
+                }
+            }else{
+                galleryAddPic();
+            }
         }
         return contentView
     }
 
-
     //Code for taking new picture for recipe.
     //Attached to takePicture button.
     private fun dispatchTakePictureIntent() {
-
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
             // Ensure that there's a camera activity to handle the intent
             takePictureIntent.resolveActivity(activity?.packageManager!!)?.also {
@@ -212,11 +209,7 @@ class NewRecipeItemDialogFragment : DialogFragment() {
         ).apply {
             // Save a file: path for use with ACTION_VIEW intents
             currentPhotoPath = absolutePath
-
-
-            System.out.println(currentPhotoPath)
         }
-
     }
 
 
@@ -225,41 +218,19 @@ class NewRecipeItemDialogFragment : DialogFragment() {
         if (requestCode == REQUEST_IMAGE_CAPTURE) {
             System.out.println(currentPhotoPath)
 
-//            var imgFile = File(currentPhotoPath)
-//            var myBitMap = BitmapFactory.decodeFile(imgFile.absolutePath)
-//            imageView.setImageBitmap(myBitMap)
-           // Glide.with(requireContext()).load(currentPhotoPath).into(imageView)
             imageView.setImageURI(currentPhotoPath.toUri())
-
         }
-//        if (requestCode == IMAGE_PICK_CODE) {
-//
-//            currentPhotoPath = getRealPathFromURI(requireContext(), data?.data!!).toString()
-//            //imageView.setImageURI(currentPhotoPath.toUri())
-//
-//            var imgFile = File(currentPhotoPath)
-//            var myBitMap = BitmapFactory.decodeFile(imgFile.absolutePath)
-//            imageView.setImageBitmap(myBitMap)
-//
-//
-//        }
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
-
             currentPhotoPath = data?.data.toString()
-//            System.out.println(currentPhotoPath)
-            //var realPath = getPath(requireContext(), data?.data!!)
+
             var realPath = getRealPathFromURI(currentPhotoPath.toUri())
-            //currentPhotoPath = realPath.toString()
-//            System.out.println(realPath)
-//            imageView.setImageURI(realPath!!.toUri())
+
             var f = File(currentPhotoPath)
-            System.out.println(realPath)
-            //imageView.setImageURI(realPath?.toUri())
+
             //Picasso.get().load(realPath).into(imageView)
             imageView.setImageURI(realPath?.toUri())
             //Glide.with(requireContext()).load(realPath).into(imageView)
         }
-
     }
 
     private fun getRealPathFromURI(contentURI: Uri): String? {
@@ -276,91 +247,12 @@ class NewRecipeItemDialogFragment : DialogFragment() {
         return result
     }
 
-    private fun getRealPathFromURI(context: Context, contentUri: Uri): String? {
-        var cursor: Cursor? = null
-        return try {
-            val proj = arrayOf(MediaStore.Images.Media.DATA)
-            cursor = context.contentResolver.query(contentUri, proj, null, null, null)
-            val column_index = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-            cursor.moveToFirst()
-            cursor.getString(column_index)
-        } catch (e: java.lang.Exception) {
-            Log.e(TAG, "getRealPathFromURI Exception : $e")
-            ""
-        } finally {
-            cursor?.close()
-        }
-    }
-
-    private fun saveImage(finalBitmap: Bitmap) {
-
-        val root = getExternalStorageDirectory().toString()
-        val myDir = File(root + "/capture_photo")
-        myDir.mkdirs()
-        val generator = Random()
-        var n = 10000
-        n = generator.nextInt(n)
-        val OutletFname = "Image-$n.jpg"
-        val file = File(myDir, OutletFname)
-        if (file.exists()) file.delete()
-        try {
-            val out = FileOutputStream(file)
-            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out)
-            imagePath = file.absolutePath
-            out.flush()
-            out.close()
-
-
-        } catch (e: Exception) {
-            e.printStackTrace()
-
-        }
-
-    }
-
-
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-//            val imageBitmap = data?.extras?.get("data") as Bitmap
-//            imageView.setImageBitmap(imageBitmap)
-//        }
-//    }
-
-    //
     private fun galleryAddPic() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         startActivityForResult(intent, IMAGE_PICK_CODE)
 
     }
-//
-//    private fun setPic() {
-//        // Get the dimensions of the View
-//        val targetW: Int = imageView.width
-//        val targetH: Int = imageView.height
-//        val bmOptions = BitmapFactory.Options()
-//        bmOptions.apply {
-//            // Get the dimensions of the bitmap
-//            inJustDecodeBounds = true
-//
-//
-//            BitmapFactory.decodeFile(currentPhotoPath, bmOptions)
-//
-//            val photoW: Int = outWidth
-//            val photoH: Int = outHeight
-//
-//            // Determine how much to scale down the image
-//            val scaleFactor: Int = Math.max(1, Math.min(photoW / targetW, photoH / targetH))
-//
-//            // Decode the image file into a Bitmap sized to fill the View
-//            inJustDecodeBounds = false
-//            inSampleSize = scaleFactor
-//            inPurgeable = true
-//        }
-//        BitmapFactory.decodeFile(currentPhotoPath, bmOptions)?.also { bitmap ->
-//            imageView.setImageBitmap(bitmap)
-//        }
-//    }
 
     private fun isValid(): Boolean {
         return (nameEditText.text.isNotEmpty() &&

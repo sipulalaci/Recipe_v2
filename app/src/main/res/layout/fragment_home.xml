@@ -18,7 +18,7 @@
 
         <TextView
             android:id="@+id/textChoose"
-            android:text="Choose"
+            android:text="@string/choose"
             android:gravity="center"
             android:textSize="52sp"
             android:includeFontPadding="false"
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/textElse"
-            android:text="one of the types below"
+            android:text="@string/one_of_the_types_below"
             android:gravity="center"
             android:textSize="20sp"
             android:textColor="#000"
@@ -76,7 +76,8 @@
                     android:layout_height="0dp"
                     android:scaleType="centerCrop"
                     android:layout_weight="80"
-                    android:src="@drawable/appetizer" />
+                    android:src="@drawable/appetizer"
+                    android:contentDescription="@string/appetizer_category_image" />
 
                 <TextView
                     android:id="@+id/text_appetizer"
@@ -84,7 +85,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="20"
                     android:gravity="center"
-                    android:text="Appetizer"
+                    android:text="@string/appetizer"
                     android:textColor="#2d2d2d"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -117,7 +118,8 @@
                     android:layout_height="0dp"
                     android:scaleType="centerCrop"
                     android:layout_weight="80"
-                    android:src="@drawable/soup" />
+                    android:src="@drawable/soup"
+                    android:contentDescription="@string/category_image" />
 
                 <TextView
                     android:id="@+id/text_soups"
@@ -125,7 +127,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="20"
                     android:gravity="center"
-                    android:text="Soup"
+                    android:text="@string/soup"
                     android:textColor="#2d2d2d"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -159,7 +161,8 @@
                     android:layout_height="0dp"
                     android:scaleType="centerCrop"
                     android:layout_weight="80"
-                    android:src="@drawable/maincourse" />
+                    android:src="@drawable/maincourse"
+                    android:contentDescription="@string/category_image" />
 
                 <TextView
                     android:id="@+id/mainCourses"
@@ -167,7 +170,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="20"
                     android:gravity="center"
-                    android:text="Main Course"
+                    android:text="@string/main_course"
                     android:textColor="#2d2d2d"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -200,7 +203,8 @@
                     android:layout_height="0dp"
                     android:scaleType="centerCrop"
                     android:layout_weight="80"
-                    android:src="@drawable/dessert" />
+                    android:src="@drawable/dessert"
+                    android:contentDescription="@string/category_image" />
 
                 <TextView
                     android:id="@+id/text_dessert"
@@ -208,7 +212,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="20"
                     android:gravity="center"
-                    android:text="Dessert"
+                    android:text="@string/dessert"
                     android:textColor="#2d2d2d"
                     android:textSize="13sp" />
             </LinearLayout>

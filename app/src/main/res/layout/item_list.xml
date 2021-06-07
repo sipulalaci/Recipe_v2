@@ -32,7 +32,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:weightSum="10">
+                android:weightSum="10"
+                android:padding="10dp"
+                android:baselineAligned="false">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -59,8 +61,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:layout_marginRight="4dp"
-                            android:text="Total time:"
+                            android:layout_marginEnd="4dp"
+                            android:text="@string/total_time"
                             android:textAppearance="?attr/textAppearanceBody2"
                             android:textColor="?android:attr/textColorSecondary"
                             />
@@ -69,7 +71,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="time"
+                            android:text="@string/time"
                             android:textAppearance="?attr/textAppearanceBody2"
                             android:textColor="?android:attr/textColorSecondary"
                             />
@@ -83,9 +85,8 @@
                             android:id="@+id/priceLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginRight="4dp"
-                            android:text="Price category:"
+                            android:layout_marginEnd="4dp"
+                            android:text="@string/price_category"
                             android:textAppearance="?attr/textAppearanceBody2"
                             android:textColor="?android:attr/textColorSecondary"
                             />
@@ -93,8 +94,7 @@
                             android:id="@+id/RecipeItemPriceTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="price"
+                            android:text="@string/price_padding"
                             android:textAppearance="?attr/textAppearanceBody2"
                             android:textColor="?android:attr/textColorSecondary"
                             />
@@ -109,9 +109,9 @@
                             android:id="@+id/categoryLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginRight="4dp"
-                            android:text="Type:"
+
+                            android:layout_marginEnd="4dp"
+                            android:text="@string/type"
                             android:textAppearance="?attr/textAppearanceBody2"
                             android:textColor="?android:attr/textColorSecondary"
                             />
@@ -119,8 +119,8 @@
                             android:id="@+id/RecipeItemCategoryTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="category"
+
+                            android:text="@string/category_textview"
                             android:textAppearance="?attr/textAppearanceBody2"
                             android:textColor="?android:attr/textColorSecondary"
                             />
@@ -132,7 +132,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:layout_marginRight="4dp">
+                    android:layout_marginEnd="4dp">
 
                     <ToggleButton
                         android:id="@+id/button_favourite"
@@ -145,13 +145,7 @@
                         android:textOff=""
                         android:textOn="" />
                 </LinearLayout>
-
             </LinearLayout>
-
-
-
-
-
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>

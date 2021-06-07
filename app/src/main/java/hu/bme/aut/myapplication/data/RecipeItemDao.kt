@@ -19,6 +19,6 @@ interface RecipeItemDao {
     @Query("SELECT * FROM recipeitem WHERE category = :type")
     fun getCategory(type: String): List<RecipeItem>
 
-    @Query("SELECT * FROM recipeitem WHERE category = :type")
-    fun getFavourites(type: String): List<RecipeItem>
+    @Query("SELECT * FROM recipeitem WHERE isfavourite = 1")
+    fun getFavourites(): List<RecipeItem>
 }

@@ -7,7 +7,6 @@
     tools:context=".ui.list.ListFragment"
     android:background="#EEEEEE" >
 
-
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/itemSwipeToRefresh"
         android:layout_width="wrap_content"
@@ -30,7 +29,8 @@
         android:layout_margin="8dp"
         android:src="@drawable/ic_add_white_36dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/actionbuttion_for_adding_new_item_to_the_list" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

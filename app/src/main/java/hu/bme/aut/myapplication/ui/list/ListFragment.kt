@@ -5,12 +5,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import androidx.viewpager.widget.ViewPager
 import hu.bme.aut.myapplication.MainActivity
 import hu.bme.aut.myapplication.R
 import hu.bme.aut.myapplication.adapter.RecipeAdapter
@@ -21,7 +27,7 @@ import kotlinx.android.synthetic.main.recipe_recyclerview.*
 import kotlin.concurrent.thread
 
 
-class ListFragment : Fragment(), RecipeAdapter.OnRecipeSelectedListener{
+class ListFragment : Fragment(), RecipeAdapter.OnRecipeSelectedListener {
 
     private lateinit var listViewModel: ListViewModel
     private lateinit var recyclerView: RecyclerView
@@ -33,31 +39,31 @@ class ListFragment : Fragment(), RecipeAdapter.OnRecipeSelectedListener{
         savedInstanceState: Bundle?
     ): View? {
         listViewModel =
-                ViewModelProvider(this).get(ListViewModel::class.java)
+            ViewModelProvider(this).get(ListViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_list, container, false)
 
         mainActivity = activity as MainActivity
 
+        System.out.println(arguments)
         return root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initRecyclerView()
-
-//        insertRecipeItem(RecipeItem(null, "leves","valami leírás1", RecipeItem.Category.SOUP,  3, 100,false))
-//        insertRecipeItem(RecipeItem(null, "süti","valami leírás2", RecipeItem.Category.DESSERT,  2, 70,false))
-//        //insertRecipeItem(RecipeItem(null, "habos almás","valami leírás3", RecipeItem.Category.DESSERT,  3, 100,false))
-//        insertRecipeItem(RecipeItem(null, "főzelék","valami leírás4", RecipeItem.Category.MAINCOURSE,  3, 45,false))
-//        insertRecipeItem(RecipeItem(null, "nyami","valami leírás5", RecipeItem.Category.APPETIZER,  1, 30,false))
+        //Alap leves hozzáadása
+//        mainActivity.insertNewItem(RecipeItem(null,
+//            "Leves",
+//            "Mossuk meg a húst és rakjuk fel főni annyi vízben, hogy ellepje.\nAdjunk hozzá sót és szemes borsot ízlés szerint.\nTisztítsuk meg és daraboljuk fel a zöldségeket.\nHa már kellően puha a hús, adjuk hozzá a zöldségeket és lassú fokozaton főzzük.\nHa minden megfőtt, frissen tálaljuk.",
+//            "hús\n6db sárgarépa\n4db fehérrépa\n1db zeller\n1db karalábé\n2db krumpli\n1 fej hagyma\nsó és bors ízlés szerint",
+//            RecipeItem.Category.SOUP, "$$", 120, false, ""))
 
         fab.setOnClickListener {
             NewRecipeItemDialogFragment().show(
                 childFragmentManager,
                 NewRecipeItemDialogFragment.TAG
             )
-
-            //loadItemsInBackground()
         }
         itemSwipeToRefresh.setOnRefreshListener {
             mainActivity.selectedType = "ALL"
@@ -65,7 +71,6 @@ class ListFragment : Fragment(), RecipeAdapter.OnRecipeSelectedListener{
             mainActivity.adapter.notifyDataSetChanged()
             itemSwipeToRefresh.isRefreshing = false
         }
-
     }
 
     private fun initRecyclerView() {
@@ -74,30 +79,21 @@ class ListFragment : Fragment(), RecipeAdapter.OnRecipeSelectedListener{
         loadItemsInBackground()
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = mainActivity.adapter
-
     }
 
-    override fun onResume(){
+    override fun onResume() {
         super.onResume()
         mainActivity.adapter.notifyDataSetChanged()
         loadItemsInBackground()
     }
 
-   private fun loadItemsInBackground() {
-        mainActivity.loadSelected(mainActivity.selectedType)
-
+    private fun loadItemsInBackground() {
+        if (mainActivity.selectedType == "ALL")
+            mainActivity.loadSelected()
+        else {
+            mainActivity.loadSelected()
+        }
     }
-
-    fun onItemChanged(item: RecipeItem) {
-        mainActivity.update(item)
-        loadItemsInBackground()
-    }
-
-
-    fun insertRecipeItem(newItem: RecipeItem) {
-        mainActivity.insertNewItem(newItem)
-    }
-
 
     override fun onRecipeSelected(item: RecipeItem, itemView: View) {
         val bundle = bundleOf(
@@ -113,16 +109,7 @@ class ListFragment : Fragment(), RecipeAdapter.OnRecipeSelectedListener{
         }
     }
 
-//    override fun onRecipeItemCreated(newItem: RecipeItem) {
-//        thread {
-//            val newId = database.recipeItemDao().insert(newItem)
-//            val newRecipeItem = newItem.copy(
-//                id = newId
-//            )
-//            activity?.runOnUiThread {
-//                adapter.addItem(newRecipeItem)
-//            }
-//        }
-//    }
-
+    override fun onIsFavouriteLongClicked(itemView: View) {
+        mainActivity.loadFavourites(itemView)
+    }
 }

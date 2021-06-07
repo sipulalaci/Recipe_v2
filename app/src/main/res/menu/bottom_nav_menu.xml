@@ -12,10 +12,6 @@
         android:title="@string/recipes" />
 
     <item
-        android:id="@+id/navigation_newRecipe"
-        android:icon="@drawable/ic_favorite_24"
-        android:title="@string/favourites" />
-    <item
         android:id="@+id/navigation_shoppingList"
         android:icon="@drawable/ic_shopping_cart_24"
         android:title="@string/shopping_list" />
